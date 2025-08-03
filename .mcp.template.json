@@ -1,0 +1,27 @@
+{
+  "mcpServers": {
+    "figma": {
+      "type": "sse",
+      "url": "http://127.0.0.1:3845/sse"
+    },
+    "github": {
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
+      "command": "docker",
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "github_pat_*"
+      },
+      "type": "stdio"
+    },
+    "notion": {
+      "type": "sse",
+      "url": "https://mcp.notion.com/sse"
+    }
+  }
+}

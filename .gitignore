@@ -1,0 +1,18 @@
+# deliverable
+.next/
+build/
+dist/
+
+# dependency
+node_modules/
+
+# env file
+.env*
+!.env.example
+
+# mcp
+.mcp.json
+
+# misc
+.DS_Store
+*.pem
