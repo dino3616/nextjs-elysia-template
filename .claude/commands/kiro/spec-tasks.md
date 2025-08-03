@@ -82,102 +82,127 @@ Create implementation plan in the language specified in spec.json:
 Create tasks.md in the language specified in spec.json (check `@.kiro/specs/$ARGUMENTS/spec.json` for "language" field):
 
 ```markdown
-# Implementation Plan
+# Implementation Plan (Parallel Development Friendly)
 
-- [ ] 1. Set up project structure and core interfaces
-  - Create directory structure for models, services, repositories, and API components
-  - Define interfaces that will be implemented in subsequent tasks
-  - Set up testing framework for test-driven development
-  - _Requirements: 1.1_
+## Phase 1: Foundation & Contracts (Prerequisites)
 
-- [ ] 2. Implement data models with test-driven approach
-- [ ] 2.1 Create base model functionality
-  - Write tests for base model behavior first
-  - Implement base Entity class to pass tests
-  - Include common properties and validation methods
-  - _Requirements: 2.1, 2.2_
+- [ ] 1.1 Create project structure and API contracts
+  - Create directory structure for both frontend and backend
+  - Define TypeScript interfaces for all API endpoints and data models
+  - Create OpenAPI/Swagger specification file
+  - Set up shared types package for frontend-backend consistency
+  - _Requirements: 1.1_ | **Parallel Ready**: Both teams can work simultaneously after this
 
-- [ ] 2.2 Implement User model with validation
-  - Write User model tests including validation edge cases
-  - Create User class with email validation and password hashing
-  - Test edge cases: invalid email, weak password, duplicate users
-  - _Requirements: 1.2, 1.3_
+- [ ] 1.2 Set up testing frameworks and mock servers
+  - Configure backend testing framework (Jest/Vitest)
+  - Configure frontend testing framework (Jest/Vitest + Testing Library)
+  - Set up API mock server for frontend development (MSW/JSON Server)
+  - Create shared test utilities and data fixtures
+  - _Requirements: 1.1_ | **Parallel Ready**: Independent testing environments
 
-- [ ] 2.3 Implement primary domain model with relationships
-  - Write tests for [Domain] model including relationships
-  - Code [Domain] class with relationship handling
-  - Implement business logic and validation rules
-  - _Requirements: 2.3, 2.4_
+## Phase 2: Backend Track (Server-Side Development)
 
-- [ ] 3. Create data access layer with test-driven approach
-- [ ] 3.1 Implement database connection utilities
-  - Write tests for database connection scenarios first
-  - Implement connection utilities to pass the tests
-  - Add error handling and connection pooling
-  - _Requirements: 3.1_
+### Backend Track A: Data Layer
+- [ ] 2A.1 Implement data models with validation
+  - Write tests for User model with validation rules
+  - Implement User class with email validation and password hashing
+  - Write tests for [Domain] model with business rules
+  - Implement [Domain] class with validation and relationships
+  - _Requirements: 2.1, 2.2, 2.3_ | **Independent**: No frontend dependency
 
-- [ ] 3.2 Implement repository pattern for User data access
-  - Write repository tests for CRUD operations first
-  - Implement User repository with standard data operations
-  - Test create, read, update, delete scenarios
-  - _Requirements: 3.2, 3.3_
+- [ ] 2A.2 Create data access layer
+  - Write tests for database connection utilities
+  - Implement connection utilities with error handling
+  - Write repository tests for CRUD operations
+  - Implement User and [Domain] repositories
+  - _Requirements: 3.1, 3.2, 3.3_ | **Independent**: No frontend dependency
 
-- [ ] 3.3 Implement domain-specific repository
-  - Write tests for domain repository operations
-  - Code [Domain]Repository with business-specific queries
-  - Include relationship loading and filtering capabilities
-  - _Requirements: 3.4_
+### Backend Track B: API Layer
+- [ ] 2B.1 Implement authentication services
+  - Write API tests for authentication flows
+  - Build AuthService with JWT token generation
+  - Create auth endpoints (login, register, refresh)
+  - Implement authentication middleware
+  - _Requirements: 4.1, 4.2_ | **Independent**: Uses API contracts from 1.1
 
-- [ ] 4. Build API layer with test-first approach
-- [ ] 4.1 Create authentication service and endpoints
-  - Write API tests for authentication flows first
-  - Build AuthService with login and registration methods
-  - Implement JWT token generation and validation
-  - Create auth endpoints with proper error handling
-  - _Requirements: 4.1, 4.2_
-
-- [ ] 4.2 Implement core API endpoints
-  - Write API tests for domain operations first
+- [ ] 2B.2 Implement core API endpoints
+  - Write API tests for domain operations
   - Code [Domain]Service with business logic
-  - Create REST endpoints with validation and error handling
-  - Implement authentication middleware for protected routes
-  - _Requirements: 4.3, 4.4_
+  - Create REST endpoints with validation
+  - Implement rate limiting and error handling
+  - _Requirements: 4.3, 4.4_ | **Independent**: Uses API contracts from 1.1
 
-- [ ] 5. Create frontend components with integrated testing
-- [ ] 5.1 Build foundational UI components
-  - Write component tests for UI elements first
-  - Create reusable components (Button, Input, Form)
-  - Test component rendering, props, and user interactions
-  - _Requirements: 5.1_
+## Phase 2: Frontend Track (Client-Side Development)
 
-- [ ] 5.2 Implement authentication components
-  - Write tests for auth component behavior first
+### Frontend Track A: Component Foundation
+- [ ] 2C.1 Build foundational UI components
+  - Write component tests for reusable elements
+  - Create design system components (Button, Input, Form, Card)
+  - Implement theme provider and styling utilities
+  - Test component rendering and user interactions
+  - _Requirements: 5.1_ | **Independent**: Uses mock data
+
+- [ ] 2C.2 Create state management and API layer
+  - Set up state management solution (Zustand/Redux Toolkit)
+  - Create API client using contracts from Phase 1
+  - Implement error handling and loading states
+  - Write tests for state management logic
+  - _Requirements: 5.1_ | **Independent**: Uses API mocks
+
+### Frontend Track B: Feature Components
+- [ ] 2D.1 Implement authentication components
+  - Write tests for auth component behavior
   - Code LoginForm and RegisterForm components
-  - Implement API integration for authentication
-  - Handle loading states and error messages
-  - _Requirements: 5.2, 5.3_
+  - Implement client-side validation
+  - Connect to API client with loading/error states
+  - _Requirements: 5.2, 5.3_ | **Independent**: Uses API mocks until backend ready
 
-- [ ] 5.3 Build main feature components
+- [ ] 2D.2 Build main feature components
   - Write tests for domain component interactions
   - Implement [Domain]List and [Domain]Form components
-  - Add API integration for data operations
-  - Handle CRUD operations with proper feedback
-  - _Requirements: 5.4, 5.5_
+  - Add CRUD operations with optimistic updates
+  - Handle pagination, filtering, and sorting
+  - _Requirements: 5.4, 5.5_ | **Independent**: Uses API mocks until backend ready
 
-- [ ] 6. Wire all components together and verify integration
-- [ ] 6.1 Create main application integration
-  - Write integration tests for complete application flow
+## Phase 3: Integration & Testing (Convergence)
+
+- [ ] 3.1 Backend-Frontend integration
+  - Replace API mocks with real backend endpoints
+  - Run integration tests against live backend
+  - Fix any contract mismatches between frontend and backend
+  - Verify authentication flow works end-to-end
+  - _Requirements: 6.1_ | **Convergence**: Both tracks merge here
+
+- [ ] 3.2 Application wiring and routing
   - Implement application routing and navigation
   - Set up authentication guards for protected routes
-  - Verify all components work together as designed
-  - _Requirements: 6.1_
+  - Add global error handling and loading states
+  - Configure production build and optimization
+  - _Requirements: 6.1_ | **Convergence**: Final integration step
 
-- [ ] 6.2 Implement automated end-to-end testing
+- [ ] 3.3 End-to-end testing and verification
   - Write E2E tests covering complete user workflows
   - Test authentication flow: register → login → logout
-  - Test main feature workflows with CRUD operations
-  - Verify complete system integration
-  - _Requirements: 6.2_
+  - Test main feature workflows with real data
+  - Run performance tests and optimize bottlenecks
+  - _Requirements: 6.2_ | **Convergence**: Complete system verification
+
+## Parallel Development Guidelines
+
+### Independence Markers
+- **Independent**: Can be developed without waiting for other track
+- **Parallel Ready**: Enables both tracks to work simultaneously
+- **Convergence**: Requires coordination between tracks
+
+### Communication Points
+1. **Phase 1 Complete**: Both tracks can begin parallel development
+2. **API Contract Changes**: Must communicate changes to both tracks
+3. **Phase 3 Start**: Coordination required for integration testing
+
+### Mock-to-Real Transition
+- Frontend uses API mocks during Phase 2
+- Backend implements real endpoints during Phase 2
+- Phase 3 replaces mocks with real backend connections
 ```
 
 **Code-Generation Prompt Format Rules**:
