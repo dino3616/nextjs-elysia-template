@@ -2,9 +2,9 @@
   "feature_name": "culture-sync",
   "project_description": "## アイデア4: CultureSync\n\n### 基本情報\n\n**解決する課題:** 現地文化・習慣を踏まえたプラン設計が困難\n**ターゲットユーザー:** 異文化体験重視の旅好き層\n**コアバリュー:** 学術的知見に基づく文化アドバイス付きプラン\n\n### 機能設計\n\n**主要機能（3つまで）:**\n\n1. 文化インサイト自動挿入（簡易データベース） – 12分\n2. 注意事項ポップアップ – 8分\n3. 翻訳リンク付き観光情報 – 5分\n\n### 技術的評価\n\n**実装難易度:** 3 / 5\n**理由:** 学術データを軽量JSON化すれば実装容易\n**リスク要因:** 情報の正確性確認に時間不足\n\n### 競合優位性\n\n**既存サービス:** Airbnb Experiences\n**差別化ポイント:** 学術視点を半自動で提供\n**インパクト度:** 信頼性の高さが審査員を納得させる\n\n***",
   "created_at": "2025-08-04T04:56:15+09:00",
-  "updated_at": "2025-08-04T11:22:00+09:00",
+  "updated_at": "2025-08-04T11:28:00+09:00",
   "language": "japanese",
-  "phase": "design-generated",
+  "phase": "tasks-generated",
   "approvals": {
     "requirements": {
       "generated": true,
@@ -12,10 +12,10 @@
     },
     "design": {
       "generated": true,
-      "approved": false
+      "approved": true
     },
     "tasks": {
-      "generated": false,
+      "generated": true,
       "approved": false
     }
   },
