@@ -20,6 +20,10 @@ Kiro-style Spec Driven Development implementation using claude code slash comman
 - Check `.kiro/specs/` for active specifications
 - Use `/kiro:spec-status [feature-name]` to check progress
 
+#### Current Active Specs
+
+- `culture-sync`: 学術的知見に基づく文化アドバイス付き旅行プラン生成システム
+
 ## Development Guidelines
 
 - Think in English, but generate responses in Japanese (思考は英語、回答の生成は日本語で行うように)
